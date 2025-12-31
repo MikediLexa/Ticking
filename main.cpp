@@ -1,8 +1,29 @@
-#include <iostream>
-#include "config.h"
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_init.h"
+#include "SDL3/SDL_oldnames.h"
+#include "Window.h"
 
-int main(int argc, char **argv) {
-	std::cout << "Hello World" << std::endl;
-	std::cout << "Version " << Ticking_VERSION_MAJOR << "." << Ticking_VERSION_MINOR << std::endl;
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
+
+int main(int, char**)
+{
+	SDL_Init(SDL_INIT_VIDEO);
+	Window GameWindow;
+
+	bool IsRunning = true;
+	SDL_Event Event;
+
+	while (IsRunning) {
+		while (SDL_PollEvent(&Event)) {
+			if (Event.type == SDL_EVENT_QUIT) {
+				IsRunning = false;
+			}
+		}
+		GameWindow.Render();
+		GameWindow.Update();
+	}
+
+	SDL_Quit();
 	return 0;
 }
