@@ -13,30 +13,30 @@ class Goblin : public GameObject
 	}
 
 	std::string Name;
-	int xPosition;
-	int yPosition;
-	int Velocity{1};
+	float xPosition;
+	float yPosition;
+	float Velocity{100.0f};
 
 	void HandleEvent(const SDL_Event& E) override
 	{
 		if (E.type != SDL_EVENT_KEY_DOWN) return;
 		if (E.key.key == SDLK_RIGHT) {
 			std::cout << "\nHandleEvent() setting velocity to 1";
-			Velocity = 1;
+			Velocity = 100.0f;
 		} else if (E.key.key == SDLK_LEFT) {
 			std::cout << "\nHandleEvent() setting velocity to -1";
-			Velocity = -1;
+			Velocity = -100.0f;
 		}
 	}
 
-	void Tick() override
+	void Tick(float TimeDelta) override
 	{
-		std::cout << "\nTick() updating position";
-		xPosition += Velocity;
+		xPosition += Velocity * TimeDelta;
+		std::cout << "Goblin position: " << xPosition << '\n';
 	}
 
 	void Render(SDL_Surface* Surface) override
 	{
-		std::cout << " - Rendering at x = " << xPosition;
+		// ,,,
 	}
 };

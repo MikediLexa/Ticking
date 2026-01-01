@@ -9,7 +9,7 @@ class GameObject
 		// ...
 	}
 
-	virtual void Tick()
+	virtual void Tick(float TimeDelta)
 	{
 		// ...
 	}
@@ -18,4 +18,6 @@ class GameObject
 	{
 		// ...
 	}
+
+	virtual ~GameObject() = default;
 };

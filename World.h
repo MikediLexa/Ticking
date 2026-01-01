@@ -15,10 +15,10 @@ class World
 		}
 	}
 
-	void Tick()
+	void Tick(float TimeDelta)
 	{
 		for (auto& Object : Objects) {
-			Object->Tick();
+			Object->Tick(TimeDelta);
 		}
 	}
 
