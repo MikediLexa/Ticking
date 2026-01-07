@@ -1,31 +1,17 @@
-#include "SDL3/SDL_events.h"
-#include "Spawner.h"
-#include "Window.h"
+#include "Player.h"
 
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
+#include <functional>
 #include <iostream>
 
-int main(int, char**)
+void LogDamage() { std::cout << "Player has taken damage"; }
+
+int main()
 {
-	SDL_Init(SDL_INIT_VIDEO);
-	Window GameWindow;
-	Spawner EnemySpawner;
+	Player Subject;
 
-	SDL_Event Event;
-	bool isRunning{true};
+	int ObserverId{Subject.AddOnDamageDelegate(LogDamage)};
 
-	while (isRunning) {
-		while (SDL_PollEvent(&Event)) {
-			if (Event.type == SDL_EVENT_QUIT) {
-				isRunning = false;
-			} else {
-				EnemySpawner.HandleEvent(Event);
-			}
-		}
-		GameWindow.Render();
-		GameWindow.Update();
-	}
-	SDL_Quit();
-	return 0;
+	Subject.TakeDamage(100);
+	Subject.RemoveOnDamageDelegate(ObserverId);
+	Subject.TakeDamage(100);
 }
